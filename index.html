@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fullscreen Form Example</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #start-button {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      margin: 50px;
+    }
+
+    #form-container {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      background-color: #f2f2f2;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    input[type="text"], input[type="submit"] {
+      display: block;
+      margin: 10px 0;
+      padding: 8px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="start-button">Open Form</button>
+
+  <div id="form-container">
+    <form id="fullscreen-form" action="submit.html" method="GET">
+      <label for="name">Enter your name:</label>
+      <input type="text" id="name" name="name" required />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+
+  <script>
+    const startButton = document.getElementById('start-button');
+    const formContainer = document.getElementById('form-container');
+    const form = document.getElementById('fullscreen-form');
+
+    // Open form in fullscreen
+    startButton.addEventListener('click', () => {
+      formContainer.style.display = 'flex';
+      
+      // Request fullscreen
+      if (formContainer.requestFullscreen) {
+        formContainer.requestFullscreen();
+      } else if (formContainer.webkitRequestFullscreen) {
+        formContainer.webkitRequestFullscreen();
+      } else if (formContainer.msRequestFullscreen) {
+        formContainer.msRequestFullscreen();
+      }
+    });
+
+    // Detect fullscreen exit
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+        autoSubmitForm();
+      }
+    });
+
+    document.addEventListener('webkitfullscreenchange', () => {
+      if (!document.webkitFullscreenElement) {
+        autoSubmitForm();
+      }
+    });
+
+    document.addEventListener('msfullscreenchange', () => {
+      if (!document.msFullscreenElement) {
+        autoSubmitForm();
+      }
+    });
+
+    function autoSubmitForm() {
+      if (formContainer.style.display === 'flex') {
+        // Check if form is already submitted
+        if (!form._submitted) {
+          form._submitted = true; // Prevent multiple submissions
+          form.submit();
+        }
+      }
+    }
+  </script>
+</body>
+</html>
