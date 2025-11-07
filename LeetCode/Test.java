@@ -1,23 +1,20 @@
 import java.util.*;
-import java.util.Arrays;
-public class Test {
-    
-public static int firstMissingPositive(int[] nums) {
-        Arrays.sort(nums);
+class Test{
+    public List<List<String>> groupAnagrams(String[] strs){
+        Map<String, List<String>> map = new HashMap<>();
+        for(String s : strs){
+            char[] sorted = s.toCharArray();
+            Arrays.sort(sorted);
         
-        int small = 1;
-        
-        for(int num : nums){
-
-           if(num == small){
-                small++;
-            }
+            String key = new String(sorted);
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
         }
 
-        return small;
+        return new ArrayList<>(map.values());
     }
-    public static void main(String[] args) {
-        int[] nums = {7,8,9,11,12};
-        System.out.println("First missing positive: " + firstMissingPositive(nums));
-    }
-}
+    public static void main(String[] args){
+        Test test = new Test();
+        String[] strs = {"eat","tea","tan","ate","nat","bat"};
+        List<List<String>> result = test.groupAnagrams(strs);
+        System.out.println(result);
+    }}
