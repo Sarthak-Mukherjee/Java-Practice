@@ -2,7 +2,7 @@ class TWOSUM:
     def two_sum(self, nums, target):
         complement_dict = {}
 
-        for i, currentNum in enumerate(nums):
+        for i, currentNum in enumerate(nums): # idiomatic line
             
             complement = target - currentNum
 
