@@ -1,7 +1,8 @@
 import java.util.*;
 class LongestSubstring{
    static int longestconsecutive(int[] nums){
-        Set<Integer> numSet = new HashSet<>();
+        Set<Integer> numSet = new HashSet<>(); // could have also used treeset but the time complexity would have been more than hashset
+        
         for(int num : nums){
             numSet.add(num);
         }
