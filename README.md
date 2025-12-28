@@ -1,1 +1,1 @@
-## A whole repo for JAVA practice
+## A whole repo for JAVA & Python practice
